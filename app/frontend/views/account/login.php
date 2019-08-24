@@ -9,3 +9,4 @@
    </div>
    <button type="submit" class="btn btn-blue">Submit</button>
 </form>
+<h3>Do you hava a account ? </h3><a href="<?php echo base_url("home/register") ?>">Register</a>

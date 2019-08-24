@@ -15,7 +15,7 @@
       <?php if(isset($_SESSION['id'])){?>
       <a href="<?php echo base_url('home/logout') ?>">Logout</a>
     <?php }else{ ?>
-      <a href="<?php echo base_url('home/logout') ?>">Login</a>
+      <a href="<?php echo base_url('home/login') ?>">Login</a>
     <?php } ?>
     </header>
     <nav class='container'>
