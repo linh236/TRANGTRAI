@@ -3,56 +3,43 @@
 
     protected $table = 'users';
 
-    function check_user($data = []){
-      $query = "select id from {$this->table} where code_st =:code_st";
+    function register_model($data = []){
 
-      $sth = $this->db->prepare($query);
+      $query = "insert into {$this->table}(tel, fullname, password, avata, age, created_at, updated_at, admin, hide) values(:tel, :fullname, :password, :avata, :age, :created_at, :updated_at, :admin, :hide)";
 
-  		$sth->execute([
-        ':code_st'=> $data['code_st']
-      ]);
-
-  		$data =$sth->fetch(PDO::FETCH_ASSOC);
-
-    	if($data == null){
-        return 0;
-      }
-      return $data;
-    }
-
-    function enter_code($data){
-
-      $query = "select password from {$this->table} where id =:id and active_pass =:active_pass";
-
-      $sth = $this->db->prepare($query);
+  		$sth = $this->db->prepare($query);
 
   		$sth->execute([
-        ':id'=> $data['id'],
-        'active_pass'=> 0
-      ]);
+  			':tel'=>$data['tel'],
+  			':fullname'=>$data['fullname'],
+        ':password'=>$data['password'],
+        ':created_at'=>$data['created_at'],
+        ':updated_at'=>$data['updated_at'],
+        ':hide'=>0,
+        ':avata'=>"avata.png",
+        ':age'=>"",
+        ':admin'=>0,
+  		]);
 
-  		$data =$sth->fetch(PDO::FETCH_ASSOC);
-
-      return $data;
-
+      $sth->closeCursor();
     }
 
-    function check_pass($data = []){
-      $query = "select id from {$this->table} where password =:password and id=:id";
+    function checkUser($data = []){
+
+      $query = "select id from {$this->table} where tel = :tel and password = :password";
 
       $sth = $this->db->prepare($query);
 
       $sth->execute([
-        ':password'=> $data['password'],
-        ':id'=> $data['user_id']
+        ":tel"=>$data["tel"],
+        ":password"=>$data["password"],
       ]);
 
-      $data =$sth->fetchAll(PDO::FETCH_ASSOC);
+      $data =$sth->fetch(PDO::FETCH_ASSOC);
 
-      if($data == null){
-        return 0;
-      }
-      return 1;
+      $sth->closeCursor();
+
+      return $data["id"];
     }
   }
  ?>
