@@ -1,8 +1,4 @@
-<?php if(isset($mes)){?>
-  <script type="text/javascript">
-    alert("<?php echo $mes ?>")
-  </script>
-<?php } ?>
+<?php  require load_error("alert");  ?>
 <form class="form-controll" action="<?php echo base_url('home/process_register') ?>" method="post">
   <div class="form-group">
      <label for="Student card">Telephone:</label>

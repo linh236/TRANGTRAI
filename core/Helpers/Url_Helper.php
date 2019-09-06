@@ -43,4 +43,15 @@ function base_url($uri = '') {
 
 	}
 
+	function load_error($name){
+		$error_name = ucfirst($name);
+		$error_path = APP_PATH."/views/share/{$error_name}_error.php";
+
+		if(!file_exists($error_path)){
+			exit("File not found $error_path");
+		}
+
+		return $error_path;
+	}
+
 ?>

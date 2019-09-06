@@ -4,13 +4,18 @@
     function __construct(){
       parent:: __construct();
       $this->model->load("User","user");
+      if(isset($_COOKIE["remember"])){
+        $_SESSION["id"] = $_COOKIE["remember"];
+
+      }
     }
 
     function index(){
-      if(isset($_COOKIE["remember"])){
-        $_SESSION["id"] = $_COOKIE["remember"];
+      if (isset($_SESSION['id'])){
+        $this->view->load('home/index');
+      }else{
+        redirect('home/login');
       }
-      $this->view->load('home/index');
     }
 
     function register(){
@@ -38,13 +43,17 @@
         redirect('home/login');
       }else{
         $data = [
-          "mes"=> "Password is false or password < 8 characters ! "
+          "mes"=> "Password is false ! "
         ];
         $this->view->load('account/register',$data);
       }
     }
     function login(){
-      $this->view->load('account/login');
+      if(!isset($_SESSION['id'])){
+        $this->view->load('account/login');
+      }else{
+        redirect('home/index');
+      }
     }
 
     function process_login(){
@@ -73,8 +82,8 @@
 
     function logout(){
       session_destroy();
-      setcookie("remember", time() - 3600);
-
+      setcookie("remember","", time() - 3600);
+      redirect('home/login');
     }
 
 

@@ -1,6 +1,7 @@
+<?php  require load_error("alert");  ?>
 <form class="form-controll" action="<?php echo base_url('home/process_login') ?>" method="post">
   <div class="form-group">
-     <label for="tel">Telephone</label>
+     <label for="tel">Telephone:</label>
      <input type="text" class="form-control" id="tel" placeholder="Enter your nick name" name="tel" required>
    </div>
    <div class="form-group">
