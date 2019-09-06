@@ -37,10 +37,18 @@
           "created_at"=>$current_time['created_at'],
           "updated_at"=>$current_time['updated_at'],
         ];
+        $result = $this->model->user->checkTel($data);
 
-        $this->model->user->register_model($data);
+        if($result != 0){
+          $data = [
+            "mes"=> "Tel is exists! "
+          ];
+            $this->view->load('account/register',$data);
+          }else{
+            $this->model->user->register_model($data);
 
-        redirect('home/login');
+            redirect('home/login');
+          }
       }else{
         $data = [
           "mes"=> "Password is false ! "

@@ -23,7 +23,21 @@
 
       $sth->closeCursor();
     }
+    function checkTel($data = []){
+      $query = "select id from {$this->table} where tel = :tel";
 
+      $sth = $this->db->prepare($query);
+
+      $sth->execute([
+        ":tel"=>$data["tel"]
+      ]);
+
+      $data =$sth->fetch(PDO::FETCH_ASSOC);
+
+      $sth->closeCursor();
+
+      return $data;
+    }
     function checkUser($data = []){
 
       $query = "select id from {$this->table} where tel = :tel and password = :password";
